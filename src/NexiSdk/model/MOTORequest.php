@@ -4,83 +4,80 @@ namespace NexiSdk\model;
 
 class MOTORequest implements \JsonSerializable
 {
+	private ?Order $order = null;
+	public function getOrder()
+	{
+		return $this->order;
+	}
+	public function setOrder(Order $order)
+	{
+		$this->order = $order;
+	}
 
-    private ?Order $order = null;
+	private ?Card $card = null;
+	public function getCard()
+	{
+		return $this->card;
+	}
+	public function setCard(Card $card)
+	{
+		$this->card = $card;
+	}
 
-    public function getOrder()
-    {
-        return $this->order;
-    }
+	private ?CaptureType $captureType = null;
+	public function getCaptureType()
+	{
+		return $this->captureType;
+	}
+	public function setCaptureType(CaptureType $captureType)
+	{
+		$this->captureType = $captureType;
+	}
 
-    public function setOrder(Order $order)
-    {
-        $this->order = $order;
-    }
 
-    private ?Card $card = null;
 
-    public function getCard()
-    {
-        return $this->card;
-    }
 
-    public function setCard(Card $card)
-    {
-        $this->card = $card;
-    }
+	public static function fromJsonDeserializedData($data)
+	{
+		if ($data instanceof \stdClass) {
+			$realdata = get_object_vars($data);
+		} else {
+			$realdata = $data;
+		}
 
-    private ?CaptureType $captureType = null;
+		$returnObject = new MOTORequest();
 
-    public function getCaptureType()
-    {
-        return $this->captureType;
-    }
 
-    public function setCaptureType(CaptureType $captureType)
-    {
-        $this->captureType = $captureType;
-    }
+		if (array_key_exists("order", $realdata)) {
+			$returnObject->setOrder(Order::fromJsonDeserializedData($realdata["order"]));
+		}
 
-    public static function fromJsonDeserializedData($data)
-    {
-        if ($data instanceof \stdClass) {
-            $realdata = get_object_vars($data);
-        } else {
-            $realdata = $data;
-        }
+		if (array_key_exists("card", $realdata)) {
+			$returnObject->setCard(Card::fromJsonDeserializedData($realdata["card"]));
+		}
 
-        $returnObject = new MOTORequest();
+		if (array_key_exists("captureType", $realdata)) {
+			$returnObject->setCaptureType(CaptureType::fromJsonDeserializedData($realdata["captureType"]));
+		}
 
-        if (array_key_exists("order", $realdata)) {
-            $returnObject->setOrder(Order::fromJsonDeserializedData($realdata["order"]));
-        }
+		return $returnObject;
+	}
 
-        if (array_key_exists("card", $realdata)) {
-            $returnObject->setCard(Card::fromJsonDeserializedData($realdata["card"]));
-        }
 
-        if (array_key_exists("captureType", $realdata)) {
-            $returnObject->setCaptureType(CaptureType::fromJsonDeserializedData($realdata["captureType"]));
-        }
+	#[\ReturnTypeWillChange]
+	public function jsonSerialize()
+	{
+		$data = array();
+		if ($this->order !== null) {
+			$data["order"] = $this->order;
+		}
+		if ($this->card !== null) {
+			$data["card"] = $this->card;
+		}
+		if ($this->captureType !== null) {
+			$data["captureType"] = $this->captureType;
+		}
 
-        return $returnObject;
-    }
-
-    #[\ReturnTypeWillChange]
-    public function jsonSerialize()
-    {
-        $data = array();
-        if ($this->order !== null) {
-            $data["order"] = $this->order;
-        }
-        if ($this->card !== null) {
-            $data["card"] = $this->card;
-        }
-        if ($this->captureType !== null) {
-            $data["captureType"] = $this->captureType;
-        }
-
-        return $data;
-    }
-
+		return $data;
+	}
 }

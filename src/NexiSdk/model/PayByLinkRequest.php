@@ -4,83 +4,80 @@ namespace NexiSdk\model;
 
 class PayByLinkRequest implements \JsonSerializable
 {
+	private ?Order $order = null;
+	public function getOrder()
+	{
+		return $this->order;
+	}
+	public function setOrder(Order $order)
+	{
+		$this->order = $order;
+	}
 
-    private ?Order $order = null;
+	private ?PaymentSession $paymentSession = null;
+	public function getPaymentSession()
+	{
+		return $this->paymentSession;
+	}
+	public function setPaymentSession(PaymentSession $paymentSession)
+	{
+		$this->paymentSession = $paymentSession;
+	}
 
-    public function getOrder()
-    {
-        return $this->order;
-    }
+	private ?string $expirationDate = null;
+	public function getExpirationDate()
+	{
+		return $this->expirationDate;
+	}
+	public function setExpirationDate(string $expirationDate)
+	{
+		$this->expirationDate = $expirationDate;
+	}
 
-    public function setOrder(Order $order)
-    {
-        $this->order = $order;
-    }
 
-    private ?PaymentSession $paymentSession = null;
 
-    public function getPaymentSession()
-    {
-        return $this->paymentSession;
-    }
 
-    public function setPaymentSession(PaymentSession $paymentSession)
-    {
-        $this->paymentSession = $paymentSession;
-    }
+	public static function fromJsonDeserializedData($data)
+	{
+		if ($data instanceof \stdClass) {
+			$realdata = get_object_vars($data);
+		} else {
+			$realdata = $data;
+		}
 
-    private ?string $expitrationDate = null;
+		$returnObject = new PayByLinkRequest();
 
-    public function getExpitrationDate()
-    {
-        return $this->expitrationDate;
-    }
 
-    public function setExpitrationDate(string $expitrationDate)
-    {
-        $this->expitrationDate = $expitrationDate;
-    }
+		if (array_key_exists("order", $realdata)) {
+			$returnObject->setOrder(Order::fromJsonDeserializedData($realdata["order"]));
+		}
 
-    public static function fromJsonDeserializedData($data)
-    {
-        if ($data instanceof \stdClass) {
-            $realdata = get_object_vars($data);
-        } else {
-            $realdata = $data;
-        }
+		if (array_key_exists("paymentSession", $realdata)) {
+			$returnObject->setPaymentSession(PaymentSession::fromJsonDeserializedData($realdata["paymentSession"]));
+		}
 
-        $returnObject = new PayByLinkRequest();
+		if (array_key_exists("expirationDate", $realdata)) {
+			$returnObject->setExpirationDate($realdata["expirationDate"]);
+		}
 
-        if (array_key_exists("order", $realdata)) {
-            $returnObject->setOrder(Order::fromJsonDeserializedData($realdata["order"]));
-        }
+		return $returnObject;
+	}
 
-        if (array_key_exists("paymentSession", $realdata)) {
-            $returnObject->setPaymentSession(PaymentSession::fromJsonDeserializedData($realdata["paymentSession"]));
-        }
 
-        if (array_key_exists("expitrationDate", $realdata)) {
-            $returnObject->setExpitrationDate($realdata["expitrationDate"]);
-        }
+	#[\ReturnTypeWillChange]
+	public function jsonSerialize()
+	{
+		$data = array();
+		if ($this->order !== null) {
+			$data["order"] = $this->order;
+		}
+		if ($this->paymentSession !== null) {
+			$data["paymentSession"] = $this->paymentSession;
+		}
+		if ($this->expirationDate !== null) {
+			$data["expirationDate"] = $this->expirationDate;
+		}
 
-        return $returnObject;
-    }
-
-    #[\ReturnTypeWillChange]
-    public function jsonSerialize()
-    {
-        $data = array();
-        if ($this->order !== null) {
-            $data["order"] = $this->order;
-        }
-        if ($this->paymentSession !== null) {
-            $data["paymentSession"] = $this->paymentSession;
-        }
-        if ($this->expitrationDate !== null) {
-            $data["expitrationDate"] = $this->expitrationDate;
-        }
-
-        return $data;
-    }
-
+		return $data;
+	}
 }

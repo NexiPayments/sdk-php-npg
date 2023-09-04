@@ -5,6 +5,8 @@ namespace NexiSdk\model;
 class ErrorList implements \JsonSerializable
 {
 
+
+
     public static function fromJsonDeserializedData($data)
     {
         if ($data instanceof \stdClass) {
@@ -15,8 +17,10 @@ class ErrorList implements \JsonSerializable
 
         $returnObject = new ErrorList();
 
+
         return $returnObject;
     }
+
 
     #[\ReturnTypeWillChange]
     public function jsonSerialize()
@@ -25,5 +29,4 @@ class ErrorList implements \JsonSerializable
 
         return $data;
     }
-
 }

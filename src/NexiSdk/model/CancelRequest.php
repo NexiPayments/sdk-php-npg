@@ -4,18 +4,18 @@ namespace NexiSdk\model;
 
 class CancelRequest implements \JsonSerializable
 {
-
     private ?string $description = null;
-
     public function getDescription()
     {
         return $this->description;
     }
-
     public function setDescription(string $description)
     {
         $this->description = $description;
     }
+
+
+
 
     public static function fromJsonDeserializedData($data)
     {
@@ -27,12 +27,14 @@ class CancelRequest implements \JsonSerializable
 
         $returnObject = new CancelRequest();
 
+
         if (array_key_exists("description", $realdata)) {
             $returnObject->setDescription($realdata["description"]);
         }
 
         return $returnObject;
     }
+
 
     #[\ReturnTypeWillChange]
     public function jsonSerialize()
@@ -44,5 +46,4 @@ class CancelRequest implements \JsonSerializable
 
         return $data;
     }
-
 }

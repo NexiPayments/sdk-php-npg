@@ -5,39 +5,50 @@ namespace NexiSdk\model;
 class PaymentMethodType implements \JsonSerializable
 {
 
-    private $value;
 
-    private function __construct($value)
-    {
-        $this->value = $value;
-    }
+	private $value;
 
-    public function jsonSerialize()
-    {
-        return $this->value;
-    }
+	private function __construct($value)
+	{
+		$this->value = $value;
+	}
 
-    public static function CARD()
-    {
-        return new PaymentMethodType("CARD");
-    }
+	public function jsonSerialize()
+	{
+		return $this->value;
+	}
 
-    public static function APM()
-    {
-        return new PaymentMethodType("APM");
-    }
 
-    #[\ReturnTypeWillChange]
-    public static function fromJsonDeserializedData($data)
-    {
-        switch ($data) {
-            case "CARD":
-                return static::CARD();
-            case "APM":
-                return static::APM();
-        }
+	public static function CARDS()
+	{
+		return new PaymentMethodType("CARDS");
+	}
 
-        return new \Exception("Invalid value: " . $data);
-    }
+	public static function CARD()
+	{
+		return new PaymentMethodType("CARD");
+	}
 
+	public static function APM()
+	{
+		return new PaymentMethodType("APM");
+	}
+
+
+
+
+	#[\ReturnTypeWillChange]
+	public static function fromJsonDeserializedData($data)
+	{
+		switch ($data) {
+			case "CARDS":
+				return static::CARDS();
+			case "CARD":
+				return static::CARD();
+			case "APM":
+				return static::APM();
+		}
+
+		return new \Exception("Invalid value: " . $data);
+	}
 }

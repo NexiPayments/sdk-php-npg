@@ -4,18 +4,18 @@ namespace NexiSdk\model;
 
 class PaymentMethodList implements \JsonSerializable
 {
-
     private ?array $paymentMethods = null;
-
     public function getPaymentMethods()
     {
         return $this->paymentMethods;
     }
-
     public function setPaymentMethods(array $paymentMethods)
     {
         $this->paymentMethods = $paymentMethods;
     }
+
+
+
 
     public static function fromJsonDeserializedData($data)
     {
@@ -27,12 +27,14 @@ class PaymentMethodList implements \JsonSerializable
 
         $returnObject = new PaymentMethodList();
 
+
         if (array_key_exists("paymentMethods", $realdata)) {
             $returnObject->setPaymentMethods($realdata["paymentMethods"]);
         }
 
         return $returnObject;
     }
+
 
     #[\ReturnTypeWillChange]
     public function jsonSerialize()
@@ -44,5 +46,4 @@ class PaymentMethodList implements \JsonSerializable
 
         return $data;
     }
-
 }

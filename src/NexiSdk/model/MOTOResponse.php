@@ -4,18 +4,18 @@ namespace NexiSdk\model;
 
 class MOTOResponse implements \JsonSerializable
 {
-
     private ?Operation $operation = null;
-
     public function getOperation()
     {
         return $this->operation;
     }
-
     public function setOperation(Operation $operation)
     {
         $this->operation = $operation;
     }
+
+
+
 
     public static function fromJsonDeserializedData($data)
     {
@@ -27,12 +27,14 @@ class MOTOResponse implements \JsonSerializable
 
         $returnObject = new MOTOResponse();
 
+
         if (array_key_exists("operation", $realdata)) {
             $returnObject->setOperation(Operation::fromJsonDeserializedData($realdata["operation"]));
         }
 
         return $returnObject;
     }
+
 
     #[\ReturnTypeWillChange]
     public function jsonSerialize()
@@ -44,5 +46,4 @@ class MOTOResponse implements \JsonSerializable
 
         return $data;
     }
-
 }

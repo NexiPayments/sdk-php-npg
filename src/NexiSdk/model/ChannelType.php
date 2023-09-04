@@ -5,46 +5,50 @@ namespace NexiSdk\model;
 class ChannelType implements \JsonSerializable
 {
 
-    private $value;
 
-    private function __construct($value)
-    {
-        $this->value = $value;
-    }
+	private $value;
 
-    public function jsonSerialize()
-    {
-        return $this->value;
-    }
+	private function __construct($value)
+	{
+		$this->value = $value;
+	}
 
-    public static function ECOMMERCE()
-    {
-        return new ChannelType("ECOMMERCE");
-    }
+	public function jsonSerialize()
+	{
+		return $this->value;
+	}
 
-    public static function POS()
-    {
-        return new ChannelType("POS");
-    }
 
-    public static function BACKOFFICE()
-    {
-        return new ChannelType("BACKOFFICE");
-    }
+	public static function ECOMMERCE()
+	{
+		return new ChannelType("ECOMMERCE");
+	}
 
-    #[\ReturnTypeWillChange]
-    public static function fromJsonDeserializedData($data)
-    {
-        switch ($data) {
-            case "ECOMMERCE":
-                return static::ECOMMERCE();
-            case "POS":
-                return static::POS();
-            case "BACKOFFICE":
-                return static::BACKOFFICE();
-        }
+	public static function POS()
+	{
+		return new ChannelType("POS");
+	}
 
-        return new \Exception("Invalid value: " . $data);
-    }
+	public static function BACKOFFICE()
+	{
+		return new ChannelType("BACKOFFICE");
+	}
 
+
+
+
+	#[\ReturnTypeWillChange]
+	public static function fromJsonDeserializedData($data)
+	{
+		switch ($data) {
+			case "ECOMMERCE":
+				return static::ECOMMERCE();
+			case "POS":
+				return static::POS();
+			case "BACKOFFICE":
+				return static::BACKOFFICE();
+		}
+
+		return new \Exception("Invalid value: " . $data);
+	}
 }

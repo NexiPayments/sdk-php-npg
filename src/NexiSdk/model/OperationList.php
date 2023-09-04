@@ -4,18 +4,18 @@ namespace NexiSdk\model;
 
 class OperationList implements \JsonSerializable
 {
-
     private ?array $operations = null;
-
     public function getOperations()
     {
         return $this->operations;
     }
-
     public function setOperations(array $operations)
     {
         $this->operations = $operations;
     }
+
+
+
 
     public static function fromJsonDeserializedData($data)
     {
@@ -27,12 +27,14 @@ class OperationList implements \JsonSerializable
 
         $returnObject = new OperationList();
 
+
         if (array_key_exists("operations", $realdata)) {
             $returnObject->setOperations($realdata["operations"]);
         }
 
         return $returnObject;
     }
+
 
     #[\ReturnTypeWillChange]
     public function jsonSerialize()
@@ -44,5 +46,4 @@ class OperationList implements \JsonSerializable
 
         return $data;
     }
-
 }

@@ -4,178 +4,165 @@ namespace NexiSdk\model;
 
 class MerchantRiskIndicator implements \JsonSerializable
 {
+	private ?string $deliveryEmail = null;
+	public function getDeliveryEmail()
+	{
+		return $this->deliveryEmail;
+	}
+	public function setDeliveryEmail(string $deliveryEmail)
+	{
+		$this->deliveryEmail = $deliveryEmail;
+	}
 
-    private ?string $deliveryEmail = null;
+	private ?string $deliveryTimeframe = null;
+	public function getDeliveryTimeframe()
+	{
+		return $this->deliveryTimeframe;
+	}
+	public function setDeliveryTimeframe(string $deliveryTimeframe)
+	{
+		$this->deliveryTimeframe = $deliveryTimeframe;
+	}
 
-    public function getDeliveryEmail()
-    {
-        return $this->deliveryEmail;
-    }
+	private ?MerchantRiskIndicatorGiftCardAmount $giftCardAmount = null;
+	public function getGiftCardAmount()
+	{
+		return $this->giftCardAmount;
+	}
+	public function setGiftCardAmount(MerchantRiskIndicatorGiftCardAmount $giftCardAmount)
+	{
+		$this->giftCardAmount = $giftCardAmount;
+	}
 
-    public function setDeliveryEmail(string $deliveryEmail)
-    {
-        $this->deliveryEmail = $deliveryEmail;
-    }
+	private ?int $giftCardCount = null;
+	public function getGiftCardCount()
+	{
+		return $this->giftCardCount;
+	}
+	public function setGiftCardCount(int $giftCardCount)
+	{
+		$this->giftCardCount = $giftCardCount;
+	}
 
-    private ?string $deliveryTimeframe = null;
+	private ?string $preOrderDate = null;
+	public function getPreOrderDate()
+	{
+		return $this->preOrderDate;
+	}
+	public function setPreOrderDate(string $preOrderDate)
+	{
+		$this->preOrderDate = $preOrderDate;
+	}
 
-    public function getDeliveryTimeframe()
-    {
-        return $this->deliveryTimeframe;
-    }
+	private ?string $preOrderPurchaseIndicator = null;
+	public function getPreOrderPurchaseIndicator()
+	{
+		return $this->preOrderPurchaseIndicator;
+	}
+	public function setPreOrderPurchaseIndicator(string $preOrderPurchaseIndicator)
+	{
+		$this->preOrderPurchaseIndicator = $preOrderPurchaseIndicator;
+	}
 
-    public function setDeliveryTimeframe(string $deliveryTimeframe)
-    {
-        $this->deliveryTimeframe = $deliveryTimeframe;
-    }
+	private ?string $reorderItemsIndicator = null;
+	public function getReorderItemsIndicator()
+	{
+		return $this->reorderItemsIndicator;
+	}
+	public function setReorderItemsIndicator(string $reorderItemsIndicator)
+	{
+		$this->reorderItemsIndicator = $reorderItemsIndicator;
+	}
 
-    private ?MerchantRiskIndicatorGiftCardAmount $giftCardAmount = null;
+	private ?string $shipIndicator = null;
+	public function getShipIndicator()
+	{
+		return $this->shipIndicator;
+	}
+	public function setShipIndicator(string $shipIndicator)
+	{
+		$this->shipIndicator = $shipIndicator;
+	}
 
-    public function getGiftCardAmount()
-    {
-        return $this->giftCardAmount;
-    }
 
-    public function setGiftCardAmount(MerchantRiskIndicatorGiftCardAmount $giftCardAmount)
-    {
-        $this->giftCardAmount = $giftCardAmount;
-    }
 
-    private ?int $giftCardCount = null;
 
-    public function getGiftCardCount()
-    {
-        return $this->giftCardCount;
-    }
+	public static function fromJsonDeserializedData($data)
+	{
+		if ($data instanceof \stdClass) {
+			$realdata = get_object_vars($data);
+		} else {
+			$realdata = $data;
+		}
 
-    public function setGiftCardCount(int $giftCardCount)
-    {
-        $this->giftCardCount = $giftCardCount;
-    }
+		$returnObject = new MerchantRiskIndicator();
 
-    private ?string $preOrderDate = null;
 
-    public function getPreOrderDate()
-    {
-        return $this->preOrderDate;
-    }
+		if (array_key_exists("deliveryEmail", $realdata)) {
+			$returnObject->setDeliveryEmail($realdata["deliveryEmail"]);
+		}
 
-    public function setPreOrderDate(string $preOrderDate)
-    {
-        $this->preOrderDate = $preOrderDate;
-    }
+		if (array_key_exists("deliveryTimeframe", $realdata)) {
+			$returnObject->setDeliveryTimeframe($realdata["deliveryTimeframe"]);
+		}
 
-    private ?string $preOrderPurchaseIndicator = null;
+		if (array_key_exists("giftCardAmount", $realdata)) {
+			$returnObject->setGiftCardAmount(MerchantRiskIndicatorGiftCardAmount::fromJsonDeserializedData($realdata["giftCardAmount"]));
+		}
 
-    public function getPreOrderPurchaseIndicator()
-    {
-        return $this->preOrderPurchaseIndicator;
-    }
+		if (array_key_exists("giftCardCount", $realdata)) {
+			$returnObject->setGiftCardCount($realdata["giftCardCount"]);
+		}
 
-    public function setPreOrderPurchaseIndicator(string $preOrderPurchaseIndicator)
-    {
-        $this->preOrderPurchaseIndicator = $preOrderPurchaseIndicator;
-    }
+		if (array_key_exists("preOrderDate", $realdata)) {
+			$returnObject->setPreOrderDate($realdata["preOrderDate"]);
+		}
 
-    private ?string $reorderItemsIndicator = null;
+		if (array_key_exists("preOrderPurchaseIndicator", $realdata)) {
+			$returnObject->setPreOrderPurchaseIndicator($realdata["preOrderPurchaseIndicator"]);
+		}
 
-    public function getReorderItemsIndicator()
-    {
-        return $this->reorderItemsIndicator;
-    }
+		if (array_key_exists("reorderItemsIndicator", $realdata)) {
+			$returnObject->setReorderItemsIndicator($realdata["reorderItemsIndicator"]);
+		}
 
-    public function setReorderItemsIndicator(string $reorderItemsIndicator)
-    {
-        $this->reorderItemsIndicator = $reorderItemsIndicator;
-    }
+		if (array_key_exists("shipIndicator", $realdata)) {
+			$returnObject->setShipIndicator($realdata["shipIndicator"]);
+		}
 
-    private ?string $shipIndicator = null;
+		return $returnObject;
+	}
 
-    public function getShipIndicator()
-    {
-        return $this->shipIndicator;
-    }
 
-    public function setShipIndicator(string $shipIndicator)
-    {
-        $this->shipIndicator = $shipIndicator;
-    }
+	#[\ReturnTypeWillChange]
+	public function jsonSerialize()
+	{
+		$data = array();
+		if ($this->deliveryEmail !== null) {
+			$data["deliveryEmail"] = $this->deliveryEmail;
+		}
+		if ($this->deliveryTimeframe !== null) {
+			$data["deliveryTimeframe"] = $this->deliveryTimeframe;
+		}
+		if ($this->giftCardAmount !== null) {
+			$data["giftCardAmount"] = $this->giftCardAmount;
+		}
+		if ($this->giftCardCount !== null) {
+			$data["giftCardCount"] = $this->giftCardCount;
+		}
+		if ($this->preOrderDate !== null) {
+			$data["preOrderDate"] = $this->preOrderDate;
+		}
+		if ($this->preOrderPurchaseIndicator !== null) {
+			$data["preOrderPurchaseIndicator"] = $this->preOrderPurchaseIndicator;
+		}
+		if ($this->reorderItemsIndicator !== null) {
+			$data["reorderItemsIndicator"] = $this->reorderItemsIndicator;
+		}
+		if ($this->shipIndicator !== null) {
+			$data["shipIndicator"] = $this->shipIndicator;
+		}
 
-    public static function fromJsonDeserializedData($data)
-    {
-        if ($data instanceof \stdClass) {
-            $realdata = get_object_vars($data);
-        } else {
-            $realdata = $data;
-        }
-
-        $returnObject = new MerchantRiskIndicator();
-
-        if (array_key_exists("deliveryEmail", $realdata)) {
-            $returnObject->setDeliveryEmail($realdata["deliveryEmail"]);
-        }
-
-        if (array_key_exists("deliveryTimeframe", $realdata)) {
-            $returnObject->setDeliveryTimeframe($realdata["deliveryTimeframe"]);
-        }
-
-        if (array_key_exists("giftCardAmount", $realdata)) {
-            $returnObject->setGiftCardAmount(MerchantRiskIndicatorGiftCardAmount::fromJsonDeserializedData($realdata["giftCardAmount"]));
-        }
-
-        if (array_key_exists("giftCardCount", $realdata)) {
-            $returnObject->setGiftCardCount($realdata["giftCardCount"]);
-        }
-
-        if (array_key_exists("preOrderDate", $realdata)) {
-            $returnObject->setPreOrderDate($realdata["preOrderDate"]);
-        }
-
-        if (array_key_exists("preOrderPurchaseIndicator", $realdata)) {
-            $returnObject->setPreOrderPurchaseIndicator($realdata["preOrderPurchaseIndicator"]);
-        }
-
-        if (array_key_exists("reorderItemsIndicator", $realdata)) {
-            $returnObject->setReorderItemsIndicator($realdata["reorderItemsIndicator"]);
-        }
-
-        if (array_key_exists("shipIndicator", $realdata)) {
-            $returnObject->setShipIndicator($realdata["shipIndicator"]);
-        }
-
-        return $returnObject;
-    }
-
-    #[\ReturnTypeWillChange]
-    public function jsonSerialize()
-    {
-        $data = array();
-        if ($this->deliveryEmail !== null) {
-            $data["deliveryEmail"] = $this->deliveryEmail;
-        }
-        if ($this->deliveryTimeframe !== null) {
-            $data["deliveryTimeframe"] = $this->deliveryTimeframe;
-        }
-        if ($this->giftCardAmount !== null) {
-            $data["giftCardAmount"] = $this->giftCardAmount;
-        }
-        if ($this->giftCardCount !== null) {
-            $data["giftCardCount"] = $this->giftCardCount;
-        }
-        if ($this->preOrderDate !== null) {
-            $data["preOrderDate"] = $this->preOrderDate;
-        }
-        if ($this->preOrderPurchaseIndicator !== null) {
-            $data["preOrderPurchaseIndicator"] = $this->preOrderPurchaseIndicator;
-        }
-        if ($this->reorderItemsIndicator !== null) {
-            $data["reorderItemsIndicator"] = $this->reorderItemsIndicator;
-        }
-        if ($this->shipIndicator !== null) {
-            $data["shipIndicator"] = $this->shipIndicator;
-        }
-
-        return $data;
-    }
-
+		return $data;
+	}
 }

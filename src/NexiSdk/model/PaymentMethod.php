@@ -4,121 +4,114 @@ namespace NexiSdk\model;
 
 class PaymentMethod implements \JsonSerializable
 {
+	private ?string $circuit = null;
+	public function getCircuit()
+	{
+		return $this->circuit;
+	}
+	public function setCircuit(string $circuit)
+	{
+		$this->circuit = $circuit;
+	}
 
-    private ?string $circuit = null;
+	private ?PaymentMethodType $paymentMethodType = null;
+	public function getPaymentMethodType()
+	{
+		return $this->paymentMethodType;
+	}
+	public function setPaymentMethodType(PaymentMethodType $paymentMethodType)
+	{
+		$this->paymentMethodType = $paymentMethodType;
+	}
 
-    public function getCircuit()
-    {
-        return $this->circuit;
-    }
+	private ?string $imageLink = null;
+	public function getImageLink()
+	{
+		return $this->imageLink;
+	}
+	public function setImageLink(string $imageLink)
+	{
+		$this->imageLink = $imageLink;
+	}
 
-    public function setCircuit(string $circuit)
-    {
-        $this->circuit = $circuit;
-    }
+	private ?bool $recurringSupported = null;
+	public function getRecurringSupported()
+	{
+		return $this->recurringSupported;
+	}
+	public function setRecurringSupported(bool $recurringSupported)
+	{
+		$this->recurringSupported = $recurringSupported;
+	}
 
-    private ?PaymentMethodType $methodType = null;
+	private ?bool $oneClickSupported = null;
+	public function getOneClickSupported()
+	{
+		return $this->oneClickSupported;
+	}
+	public function setOneClickSupported(bool $oneClickSupported)
+	{
+		$this->oneClickSupported = $oneClickSupported;
+	}
 
-    public function getMethodType()
-    {
-        return $this->methodType;
-    }
 
-    public function setMethodType(PaymentMethodType $methodType)
-    {
-        $this->methodType = $methodType;
-    }
 
-    private ?string $imageLink = null;
 
-    public function getImageLink()
-    {
-        return $this->imageLink;
-    }
+	public static function fromJsonDeserializedData($data)
+	{
+		if ($data instanceof \stdClass) {
+			$realdata = get_object_vars($data);
+		} else {
+			$realdata = $data;
+		}
 
-    public function setImageLink(string $imageLink)
-    {
-        $this->imageLink = $imageLink;
-    }
+		$returnObject = new PaymentMethod();
 
-    private ?bool $recurringSupported = null;
 
-    public function getRecurringSupported()
-    {
-        return $this->recurringSupported;
-    }
+		if (array_key_exists("circuit", $realdata)) {
+			$returnObject->setCircuit($realdata["circuit"]);
+		}
 
-    public function setRecurringSupported(bool $recurringSupported)
-    {
-        $this->recurringSupported = $recurringSupported;
-    }
+		if (array_key_exists("paymentMethodType", $realdata)) {
+			$returnObject->setPaymentMethodType(PaymentMethodType::fromJsonDeserializedData($realdata["paymentMethodType"]));
+		}
 
-    private ?bool $oneClickSupported = null;
+		if (array_key_exists("imageLink", $realdata)) {
+			$returnObject->setImageLink($realdata["imageLink"]);
+		}
 
-    public function getOneClickSupported()
-    {
-        return $this->oneClickSupported;
-    }
+		if (array_key_exists("recurringSupported", $realdata)) {
+			$returnObject->setRecurringSupported($realdata["recurringSupported"]);
+		}
 
-    public function setOneClickSupported(bool $oneClickSupported)
-    {
-        $this->oneClickSupported = $oneClickSupported;
-    }
+		if (array_key_exists("oneClickSupported", $realdata)) {
+			$returnObject->setOneClickSupported($realdata["oneClickSupported"]);
+		}
 
-    public static function fromJsonDeserializedData($data)
-    {
-        if ($data instanceof \stdClass) {
-            $realdata = get_object_vars($data);
-        } else {
-            $realdata = $data;
-        }
+		return $returnObject;
+	}
 
-        $returnObject = new PaymentMethod();
 
-        if (array_key_exists("circuit", $realdata)) {
-            $returnObject->setCircuit($realdata["circuit"]);
-        }
+	#[\ReturnTypeWillChange]
+	public function jsonSerialize()
+	{
+		$data = array();
+		if ($this->circuit !== null) {
+			$data["circuit"] = $this->circuit;
+		}
+		if ($this->paymentMethodType !== null) {
+			$data["paymentMethodType"] = $this->paymentMethodType;
+		}
+		if ($this->imageLink !== null) {
+			$data["imageLink"] = $this->imageLink;
+		}
+		if ($this->recurringSupported !== null) {
+			$data["recurringSupported"] = $this->recurringSupported;
+		}
+		if ($this->oneClickSupported !== null) {
+			$data["oneClickSupported"] = $this->oneClickSupported;
+		}
 
-        if (array_key_exists("methodType", $realdata)) {
-            $returnObject->setMethodType(PaymentMethodType::fromJsonDeserializedData($realdata["methodType"]));
-        }
-
-        if (array_key_exists("imageLink", $realdata)) {
-            $returnObject->setImageLink($realdata["imageLink"]);
-        }
-
-        if (array_key_exists("recurringSupported", $realdata)) {
-            $returnObject->setRecurringSupported($realdata["recurringSupported"]);
-        }
-
-        if (array_key_exists("oneClickSupported", $realdata)) {
-            $returnObject->setOneClickSupported($realdata["oneClickSupported"]);
-        }
-
-        return $returnObject;
-    }
-
-    #[\ReturnTypeWillChange]
-    public function jsonSerialize()
-    {
-        $data = array();
-        if ($this->circuit !== null) {
-            $data["circuit"] = $this->circuit;
-        }
-        if ($this->methodType !== null) {
-            $data["methodType"] = $this->methodType;
-        }
-        if ($this->imageLink !== null) {
-            $data["imageLink"] = $this->imageLink;
-        }
-        if ($this->recurringSupported !== null) {
-            $data["recurringSupported"] = $this->recurringSupported;
-        }
-        if ($this->oneClickSupported !== null) {
-            $data["oneClickSupported"] = $this->oneClickSupported;
-        }
-
-        return $data;
-    }
-
+		return $data;
+	}
 }

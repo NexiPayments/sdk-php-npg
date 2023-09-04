@@ -4,197 +4,199 @@ namespace NexiSdk\model;
 
 class PaymentSession implements \JsonSerializable
 {
+	private ?ActionType $actionType = null;
+	public function getActionType()
+	{
+		return $this->actionType;
+	}
+	public function setActionType(ActionType $actionType)
+	{
+		$this->actionType = $actionType;
+	}
 
-    private ?ActionType $actionType = null;
+	private ?int $amount = null;
+	public function getAmount()
+	{
+		return $this->amount;
+	}
+	public function setAmount(int $amount)
+	{
+		$this->amount = $amount;
+	}
 
-    public function getActionType()
-    {
-        return $this->actionType;
-    }
+	private ?RecurringSettings $recurrence = null;
+	public function getRecurrence()
+	{
+		return $this->recurrence;
+	}
+	public function setRecurrence(RecurringSettings $recurrence)
+	{
+		$this->recurrence = $recurrence;
+	}
 
-    public function setActionType(ActionType $actionType)
-    {
-        $this->actionType = $actionType;
-    }
+	private ?CaptureType $captureType = null;
+	public function getCaptureType()
+	{
+		return $this->captureType;
+	}
+	public function setCaptureType(CaptureType $captureType)
+	{
+		$this->captureType = $captureType;
+	}
 
-    private ?int $amount = null;
+	private ?ExemptionsSettings $exemptions = null;
+	public function getExemptions()
+	{
+		return $this->exemptions;
+	}
+	public function setExemptions(ExemptionsSettings $exemptions)
+	{
+		$this->exemptions = $exemptions;
+	}
 
-    public function getAmount()
-    {
-        return $this->amount;
-    }
+	private ?string $language = null;
+	public function getLanguage()
+	{
+		return $this->language;
+	}
+	public function setLanguage(string $language)
+	{
+		$this->language = $language;
+	}
 
-    public function setAmount(int $amount)
-    {
-        $this->amount = $amount;
-    }
+	private ?string $resultUrl = null;
+	public function getResultUrl()
+	{
+		return $this->resultUrl;
+	}
+	public function setResultUrl(string $resultUrl)
+	{
+		$this->resultUrl = $resultUrl;
+	}
 
-    private ?RecurringSettings $recurrence = null;
+	private ?string $cancelUrl = null;
+	public function getCancelUrl()
+	{
+		return $this->cancelUrl;
+	}
+	public function setCancelUrl(string $cancelUrl)
+	{
+		$this->cancelUrl = $cancelUrl;
+	}
 
-    public function getRecurrence()
-    {
-        return $this->recurrence;
-    }
+	private ?string $notificationUrl = null;
+	public function getNotificationUrl()
+	{
+		return $this->notificationUrl;
+	}
+	public function setNotificationUrl(string $notificationUrl)
+	{
+		$this->notificationUrl = $notificationUrl;
+	}
 
-    public function setRecurrence(RecurringSettings $recurrence)
-    {
-        $this->recurrence = $recurrence;
-    }
+	private ?string $paymentService = null;
+	public function getPaymentService()
+	{
+		return $this->paymentService;
+	}
+	public function setPaymentService(string $paymentService)
+	{
+		$this->paymentService = $paymentService;
+	}
 
-    private ?CaptureType $captureType = null;
 
-    public function getCaptureType()
-    {
-        return $this->captureType;
-    }
 
-    public function setCaptureType(CaptureType $captureType)
-    {
-        $this->captureType = $captureType;
-    }
 
-    private ?ExemptionsSettings $exemptions = null;
+	public static function fromJsonDeserializedData($data)
+	{
+		if ($data instanceof \stdClass) {
+			$realdata = get_object_vars($data);
+		} else {
+			$realdata = $data;
+		}
 
-    public function getExemptions()
-    {
-        return $this->exemptions;
-    }
+		$returnObject = new PaymentSession();
 
-    public function setExemptions(ExemptionsSettings $exemptions)
-    {
-        $this->exemptions = $exemptions;
-    }
 
-    private ?string $language = null;
+		if (array_key_exists("actionType", $realdata)) {
+			$returnObject->setActionType(ActionType::fromJsonDeserializedData($realdata["actionType"]));
+		}
 
-    public function getLanguage()
-    {
-        return $this->language;
-    }
+		if (array_key_exists("amount", $realdata)) {
+			$returnObject->setAmount($realdata["amount"]);
+		}
 
-    public function setLanguage(string $language)
-    {
-        $this->language = $language;
-    }
+		if (array_key_exists("recurrence", $realdata)) {
+			$returnObject->setRecurrence(RecurringSettings::fromJsonDeserializedData($realdata["recurrence"]));
+		}
 
-    private ?string $resultUrl = null;
+		if (array_key_exists("captureType", $realdata)) {
+			$returnObject->setCaptureType(CaptureType::fromJsonDeserializedData($realdata["captureType"]));
+		}
 
-    public function getResultUrl()
-    {
-        return $this->resultUrl;
-    }
+		if (array_key_exists("exemptions", $realdata)) {
+			$returnObject->setExemptions(ExemptionsSettings::fromJsonDeserializedData($realdata["exemptions"]));
+		}
 
-    public function setResultUrl(string $resultUrl)
-    {
-        $this->resultUrl = $resultUrl;
-    }
+		if (array_key_exists("language", $realdata)) {
+			$returnObject->setLanguage($realdata["language"]);
+		}
 
-    private ?string $cancelUrl = null;
+		if (array_key_exists("resultUrl", $realdata)) {
+			$returnObject->setResultUrl($realdata["resultUrl"]);
+		}
 
-    public function getCancelUrl()
-    {
-        return $this->cancelUrl;
-    }
+		if (array_key_exists("cancelUrl", $realdata)) {
+			$returnObject->setCancelUrl($realdata["cancelUrl"]);
+		}
 
-    public function setCancelUrl(string $cancelUrl)
-    {
-        $this->cancelUrl = $cancelUrl;
-    }
+		if (array_key_exists("notificationUrl", $realdata)) {
+			$returnObject->setNotificationUrl($realdata["notificationUrl"]);
+		}
 
-    private ?string $notificationUrl = null;
+		if (array_key_exists("paymentService", $realdata)) {
+			$returnObject->setPaymentService($realdata["paymentService"]);
+		}
 
-    public function getNotificationUrl()
-    {
-        return $this->notificationUrl;
-    }
+		return $returnObject;
+	}
 
-    public function setNotificationUrl(string $notificationUrl)
-    {
-        $this->notificationUrl = $notificationUrl;
-    }
 
-    public static function fromJsonDeserializedData($data)
-    {
-        if ($data instanceof \stdClass) {
-            $realdata = get_object_vars($data);
-        } else {
-            $realdata = $data;
-        }
+	#[\ReturnTypeWillChange]
+	public function jsonSerialize()
+	{
+		$data = array();
+		if ($this->actionType !== null) {
+			$data["actionType"] = $this->actionType;
+		}
+		if ($this->amount !== null) {
+			$data["amount"] = $this->amount;
+		}
+		if ($this->recurrence !== null) {
+			$data["recurrence"] = $this->recurrence;
+		}
+		if ($this->captureType !== null) {
+			$data["captureType"] = $this->captureType;
+		}
+		if ($this->exemptions !== null) {
+			$data["exemptions"] = $this->exemptions;
+		}
+		if ($this->language !== null) {
+			$data["language"] = $this->language;
+		}
+		if ($this->resultUrl !== null) {
+			$data["resultUrl"] = $this->resultUrl;
+		}
+		if ($this->cancelUrl !== null) {
+			$data["cancelUrl"] = $this->cancelUrl;
+		}
+		if ($this->notificationUrl !== null) {
+			$data["notificationUrl"] = $this->notificationUrl;
+		}
+		if ($this->paymentService !== null) {
+			$data["paymentService"] = $this->paymentService;
+		}
 
-        $returnObject = new PaymentSession();
-
-        if (array_key_exists("actionType", $realdata)) {
-            $returnObject->setActionType(ActionType::fromJsonDeserializedData($realdata["actionType"]));
-        }
-
-        if (array_key_exists("amount", $realdata)) {
-            $returnObject->setAmount($realdata["amount"]);
-        }
-
-        if (array_key_exists("recurrence", $realdata)) {
-            $returnObject->setRecurrence(RecurringSettings::fromJsonDeserializedData($realdata["recurrence"]));
-        }
-
-        if (array_key_exists("captureType", $realdata)) {
-            $returnObject->setCaptureType(CaptureType::fromJsonDeserializedData($realdata["captureType"]));
-        }
-
-        if (array_key_exists("exemptions", $realdata)) {
-            $returnObject->setExemptions(ExemptionsSettings::fromJsonDeserializedData($realdata["exemptions"]));
-        }
-
-        if (array_key_exists("language", $realdata)) {
-            $returnObject->setLanguage($realdata["language"]);
-        }
-
-        if (array_key_exists("resultUrl", $realdata)) {
-            $returnObject->setResultUrl($realdata["resultUrl"]);
-        }
-
-        if (array_key_exists("cancelUrl", $realdata)) {
-            $returnObject->setCancelUrl($realdata["cancelUrl"]);
-        }
-
-        if (array_key_exists("notificationUrl", $realdata)) {
-            $returnObject->setNotificationUrl($realdata["notificationUrl"]);
-        }
-
-        return $returnObject;
-    }
-
-    #[\ReturnTypeWillChange]
-    public function jsonSerialize()
-    {
-        $data = array();
-        if ($this->actionType !== null) {
-            $data["actionType"] = $this->actionType;
-        }
-        if ($this->amount !== null) {
-            $data["amount"] = $this->amount;
-        }
-        if ($this->recurrence !== null) {
-            $data["recurrence"] = $this->recurrence;
-        }
-        if ($this->captureType !== null) {
-            $data["captureType"] = $this->captureType;
-        }
-        if ($this->exemptions !== null) {
-            $data["exemptions"] = $this->exemptions;
-        }
-        if ($this->language !== null) {
-            $data["language"] = $this->language;
-        }
-        if ($this->resultUrl !== null) {
-            $data["resultUrl"] = $this->resultUrl;
-        }
-        if ($this->cancelUrl !== null) {
-            $data["cancelUrl"] = $this->cancelUrl;
-        }
-        if ($this->notificationUrl !== null) {
-            $data["notificationUrl"] = $this->notificationUrl;
-        }
-
-        return $data;
-    }
-
+		return $data;
+	}
 }

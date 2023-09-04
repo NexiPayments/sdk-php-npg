@@ -12,40 +12,29 @@ use NexiSdk\model\CardVerificationRequest;
 use NexiSdk\model\CardVerificationResponse;
 use NexiSdk\model\ChannelType;
 use NexiSdk\model\ContractsByCustomerResponse;
-use NexiSdk\model\CreateHostedFieldOrderRequest;
-use NexiSdk\model\CreateHostedFieldOrderResponse;
 use NexiSdk\model\CreateHostedOrderRequest;
 use NexiSdk\model\CreateHostedOrderResponse;
-use NexiSdk\model\DelayChargeRequest;
-use NexiSdk\model\DelayChargeResponse;
-use NexiSdk\model\IncrementalRequest;
-use NexiSdk\model\IncrementalResponse;
 use NexiSdk\model\MITRequest;
 use NexiSdk\model\MITResponse;
 use NexiSdk\model\MOTORequest;
 use NexiSdk\model\MOTOResponse;
-use NexiSdk\model\NoShowRequest;
-use NexiSdk\model\NoShowResponse;
 use NexiSdk\model\Operation;
 use NexiSdk\model\OperationList;
 use NexiSdk\model\OperationType;
 use NexiSdk\model\Order;
 use NexiSdk\model\OrderDetails;
-use NexiSdk\model\Orders;
 use NexiSdk\model\PayByLinkRequest;
 use NexiSdk\model\PayByLinkResponse;
 use NexiSdk\model\PaymentMethodList;
 use NexiSdk\model\RefundRequest;
 use NexiSdk\model\RefundResponse;
-use NexiSdk\model\TechSearchResponse;
-use NexiSdk\model\TecRequest;
-use NexiSdk\model\TecResponse;
 use NexiSdk\model\ThreeDSInitRequest;
 use NexiSdk\model\ThreeDSInitResponse;
 use NexiSdk\model\ThreeDSPaymentRequest;
 use NexiSdk\model\ThreeDSPaymentResponse;
 use NexiSdk\model\ThreeDSValidationRequest;
 use NexiSdk\model\ThreeDSValidationResponse;
+
 
 class PaymentGatewayClient
 {
@@ -120,24 +109,6 @@ class PaymentGatewayClient
             $createHostedOrderRequest
         );
         return CreateHostedOrderResponse::fromJsonDeserializedData(json_decode($result, true));
-    }
-
-    /**
-     * Undocumented function
-     *
-     * @param CreateHostedFieldOrderRequest $createHostedFieldOrderRequest
-     * @return CreateHostedFieldOrderResponse
-     */
-    public function createOrderForConfigurablePaymentPage(
-        CreateHostedFieldOrderRequest $createHostedFieldOrderRequest
-    ): CreateHostedFieldOrderResponse {
-        $this->validateOrderValues($createHostedFieldOrderRequest->getOrder());
-        $result = $this->_httpFacade->executeHttpPost(
-            $this->_configuration,
-            "/orders/build",
-            $createHostedFieldOrderRequest
-        );
-        return CreateHostedFieldOrderResponse::fromJsonDeserializedData(json_decode($result, true));
     }
 
     /**
@@ -560,129 +531,4 @@ class PaymentGatewayClient
         return ThreeDSPaymentResponse::fromJsonDeserializedData(json_decode($result, true));
     }
 
-    /**
-     * Undocumented function
-     *
-     * @param TecRequest $tecRequest
-     *
-     * @return TecResponse
-     */
-    public function createTermsAndConditions(
-        TecRequest $tecRequest
-    ): TecResponse {
-        $result = $this->_httpFacade->executeHttpPost(
-            $this->_configuration,
-            "/terms_and_conditions",
-            $tecRequest
-        );
-        return TecResponse::fromJsonDeserializedData(json_decode($result, true));
-    }
-
-    /**
-     * Undocumented function
-     *
-     * @return array
-     */
-    public function retrieveTermsAndConditions(): array
-    {
-        $result = $this->_httpFacade->executeHttpGet(
-            $this->_configuration,
-            "/terms_and_conditions",
-            array()
-        );
-        $tecs = [];
-        foreach (json_decode($result, true) as $oneDecoded) {
-            $tecs[] = TecResponse::fromJsonDeserializedData($oneDecoded);
-        }
-        return $tecs;
-    }
-
-    /**
-     * Undocumented function
-     *
-     * @param string $termsAndConditionsId
-     *
-     * @return TecSearchResponse
-     */
-    public function retrieveTermsAndConditionsDetails(
-        string $termsAndConditionsId
-    ): TechSearchResponse {
-        $result = $this->_httpFacade->executeHttpGet(
-            $this->_configuration,
-            "/terms_and_conditions/" . $this->escapeUrlComponent($termsAndConditionsId),
-            array()
-        );
-        return TechSearchResponse::fromJsonDeserializedData(json_decode($result, true));
-    }
-
-    /**
-     * Undocumented function
-     *
-     * @param string $termsAnsConditionsId
-     *
-     * @return void
-     */
-    public function cancelTermsAndConditionsById(
-        string $termsAndConditionsId
-    ): void {
-        $this->_httpFacade->executeHttpPost(
-            $this->_configuration,
-            "/terms_and_conditions/" . $this->escapeUrlComponent($termsAndConditionsId) . "/cancels",
-            null
-        );
-    }
-
-    /**
-     * Undocumented function
-     *
-     * @param IncrementalRequest $incrementalRequest
-     *
-     * @return IncrementalResponse
-     */
-    public function incremental(
-        IncrementalRequest $incrementalRequest
-    ): IncrementalResponse {
-        $result = $this->_httpFacade->executeHttpPost(
-            $this->_configuration,
-            "/incrementals",
-            $incrementalRequest
-        );
-        return new IncrementalResponse(json_decode($result, true));
-    }
-
-    /**
-     * Undocumented function
-     *
-     * @param DelayChargeRequest $delayChargeRequest
-     *
-     * @return DelayChargeResponse
-     */
-    public function delayCharge(
-        DelayChargeRequest $delayChargeRequest
-    ): DelayChargeResponse {
-        $result = $this->_httpFacade->executeHttpPost(
-            $this->_configuration,
-            "/delay_charges",
-            $delayChargeRequest
-        );
-        return new DelayChargeResponse(json_decode($result, true));
-    }
-
-    /**
-     * Undocumented function
-     *
-     * @param NoShowRequest $noShowRequest
-     *
-     * @return NoShowResponse
-     */
-    public function noShow(
-        NoShowRequest $noShowRequest
-    ): NoShowResponse {
-        $result = $this->_httpFacade->executeHttpPost(
-            $this->_configuration,
-            "/no_shows",
-            $noShowRequest
-        );
-        return new NoShowResponse(json_decode($result, true));
-    }
 }
