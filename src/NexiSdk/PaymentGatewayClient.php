@@ -34,7 +34,7 @@ use NexiSdk\model\ThreeDSPaymentRequest;
 use NexiSdk\model\ThreeDSPaymentResponse;
 use NexiSdk\model\ThreeDSValidationRequest;
 use NexiSdk\model\ThreeDSValidationResponse;
-
+use NexiSdk\model\WebhookNotificationBody;
 
 class PaymentGatewayClient
 {
@@ -141,7 +141,7 @@ class PaymentGatewayClient
         if ($customField != null) {
             $queryParams["customField"] = $customField;
         }
-        $result = $this->_httpFacade->executeHttpPost(
+        $result = $this->_httpFacade->executeHttpGet(
             $this->_configuration,
             "/orders",
             $queryParams
@@ -193,7 +193,7 @@ class PaymentGatewayClient
         if ($customField != null) {
             $queryParams["customField"] = $customField;
         }
-        $result = $this->_httpFacade->executeHttpPost(
+        $result = $this->_httpFacade->executeHttpGet(
             $this->_configuration,
             "/operations",
             $queryParams
@@ -210,7 +210,7 @@ class PaymentGatewayClient
     public function findOperationById(
         string $operationId
     ): Operation {
-        $result = $this->_httpFacade->executeHttpPost(
+        $result = $this->_httpFacade->executeHttpGet(
             $this->_configuration,
             "/operations/" . $this->escapeUrlComponent($operationId),
             array()
@@ -529,6 +529,17 @@ class PaymentGatewayClient
             $threeDSPaymentRequest
         );
         return ThreeDSPaymentResponse::fromJsonDeserializedData(json_decode($result, true));
+    }
+
+    public function decodeWebhook(
+        string $webhookPayload,
+        string $securityToken
+    ): WebhookNotificationBody {
+        $webhookNotificationBody = WebhookNotificationBody::fromJsonDeserializedData(json_decode($webhookPayload));
+        if ($securityToken !== $webhookNotificationBody->getSecurityToken()) {
+            throw new \NexiSdk\exceptions\InvalidSecurityToken($webhookNotificationBody->getSecurityToken() . " is not valid");
+        }
+        return $webhookNotificationBody;
     }
 
 }
